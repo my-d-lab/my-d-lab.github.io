@@ -1,128 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-Lab Landing Page</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            color: #f0f0f0;
-            background-color: #2b2b2b;
-            margin: 0;
-            height: 100vh;
-        }
-
-        .section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 87vh;
-            text-align: center;
-        }
-
-        .hero {
-            position: relative;
-            color: #ffffff;
-        }
-
-        .hero video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-            z-index: -1;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero button {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            color: #2b2b2b;
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .about, .features, .logos {
-            background-color: #3b3b3b;
-        }
-
-        .about h2, .features h2, .logos h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .logos {
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10%;
-            z-index: 10;
-            position: relative;
-            min-height: 8vh;
-            overflow: hidden;
-            background-color: white;
-        }
-
-        .logos img {
-            height: 80px;
-            width: 80px;
-            max-height: 300px;
-            max-width: 300px;
-            object-fit: contain;
-            display: block;
-        }
-
-        footer {
-            display: flex;
-            position: absolute;
-            min-height: 5vh;
-            width: 100%;
-            bottom: 0px;
-            background-color: #1b1b1b;
-            color: #f0f0f0;
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My D-Lab - Landing Page</title>
+	<link rel="stylesheet" href="styles/common.css">
 </head>
 <body>
-    <div class="section hero">
-        <video autoplay loop muted>
-            <source src="./static/placeholder-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <h1>Welcome to D-Lab</h1>
-        <button>Get Started</button>
-    </div>
-    <div class="section logos">
-        <img src="./static/placeholder-logo1.png" alt="Logo 1">
-        <img src="./static/placeholder-logo2.png" alt="Logo 2">
-        <img src="./static/placeholder-logo3.png" alt="Logo 3">
-        <img src="./static/placeholder-logo4.png" alt="Logo 4">
-        <img src="./static/placeholder-logo5.png" alt="Logo 5">
-    </div>
-    <footer>
-        &copy; 2025 D-Lab. All rights reserved. Contact us at info@d-lab.com.
-    </footer>
+	<header>
+		<nav id="main-nav"></nav>
+	</header>
+	<main>
+		<section class="hero" id="hero">
+			<div class="hero-content">
+				<h1>Welcome to My D-Lab</h1>
+				<p>Innovate. Create. Transform. Your digital journey starts here.</p>
+				<a href="/pages/services.html" class="cta-btn">Get Started</a>
+			</div>
+		</section>
+		<section class="section intro" id="intro">
+			<h2>What We Do</h2>
+			<p>We provide cutting-edge digital solutions for modern businesses.</p>
+		</section>
+	</main>
+	<footer>
+		<p>&copy; 2025 My D-Lab. All rights reserved.</p>
+	</footer>
+	<script src="static/nav.js"></script>
 </body>
 </html>
