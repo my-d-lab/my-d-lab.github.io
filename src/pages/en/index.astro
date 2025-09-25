@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import VideoHero from '../../components/VideoHero.astro';
+import { getLanguageFromUrl, languages } from '../../i18n/utils';
+
+const { pathname } = Astro.url;
+const lang = getLanguageFromUrl(pathname);
+const t = (key: string) => key.split('.').reduce((obj: any, k) => obj?.[k], languages[lang]) || key;
+---
+
+<Layout title="DragonLab Team">
+	<VideoHero />
+</Layout>

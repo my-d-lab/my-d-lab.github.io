@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VideoHero from '../components/VideoHero.astro';
+---
+
+<Layout title="DragonLab Team">
+    <VideoHero />
+</Layout>
+
+<script>
+    // Smooth scroll function
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (!targetId) return;
+
+            const targetElement = document.querySelector(targetId);
+            if (!targetElement) return;
+
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Close mobile menu if it's open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>

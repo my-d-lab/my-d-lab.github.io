@@ -1,0 +1,43 @@
+---
+import '../styles/base.css';
+import Navbar from '../components/Navbar.astro';
+import { getLanguageFromUrl, type Language, languages } from '../i18n/utils';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { pathname } = Astro.url;
+const lang = getLanguageFromUrl(pathname);
+const t = (key: string) => key.split('.').reduce((obj: any, k: string) => obj?.[k], languages[lang]) || key;
+
+const { title, description = t('meta.description') } = Astro.props;
+---
+
+<!doctype html>
+<html lang="uk">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-black h-screen overflow-hidden">
+		<Navbar />
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--accent: 0, 108, 80;
+		--accent-light: 0, 159, 118;
+	}
+	
+	html {
+		scroll-behavior: smooth;
+	}
+</style>

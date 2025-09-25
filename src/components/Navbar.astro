@@ -1,0 +1,125 @@
+---
+import { getLanguageFromUrl, type Language, languages, getRedirectPath } from '../i18n/utils';
+
+const { pathname } = Astro.url;
+const currentLang = getLanguageFromUrl(pathname);
+const t = (key: string) => key.split('.').reduce((obj: any, k) => obj?.[k], languages[currentLang]) || key;
+---
+
+<nav class="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-sm z-50">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href={`/${currentLang}`} class="flex items-center space-x-2">
+                    <img src="/dragonlab-logo.svg" alt="DragonLab Logo" class="h-8" />
+                    <span class="text-white font-bold">TEAM</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="hidden lg:block flex-1">
+                <div class="grid grid-cols-5 gap-2 max-w-[600px] mx-auto">
+                    <a href="/" class="text-white hover:text-emerald-400 transition-colors w-[100px] text-center py-2">{t('nav.home')}</a>
+                    <a href="/about" class="text-white hover:text-emerald-400 transition-colors w-[100px] text-center py-2">{t('nav.about')}</a>
+                    <a href="/news" class="text-white hover:text-emerald-400 transition-colors w-[100px] text-center py-2">{t('nav.news')}</a>
+                    <a href="/results" class="text-white hover:text-emerald-400 transition-colors w-[100px] text-center py-2">{t('nav.results')}</a>
+                    <a href="/faq" class="text-white hover:text-emerald-400 transition-colors w-[100px] text-center py-2">{t('nav.faq')}</a>
+                </div>
+            </div>
+
+            <!-- Language Switcher and Contact -->
+            <div class="hidden lg:flex items-center">
+                <div class="flex items-center border-r border-white/20 pr-4 mr-4">
+                    <a 
+                        href={getRedirectPath(pathname, 'uk')} 
+                        class={`w-10 text-center text-sm ${currentLang === 'uk' ? 'text-emerald-400' : 'text-white'} hover:text-emerald-400 transition-colors`}
+                    >
+                        UA
+                    </a>
+                    <span class="text-white/20 mx-2">|</span>
+                    <a 
+                        href={getRedirectPath(pathname, 'en')} 
+                        class={`w-10 text-center text-sm ${currentLang === 'en' ? 'text-emerald-400' : 'text-white'} hover:text-emerald-400 transition-colors`}
+                    >
+                        EN
+                    </a>
+                </div>
+                <a href={`/${currentLang}/contact`} class="text-white border border-white w-[140px] py-2 rounded hover:bg-white hover:text-black transition-colors text-center">
+                    {t('nav.contact')}
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="lg:hidden">
+                <button id="mobile-menu-button" class="text-white p-2">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-black/95">
+        <div class="container mx-auto px-4 py-4">
+            <nav class="grid gap-1">
+                <a href="/" class="w-full h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-md transition-colors">
+                    {t('nav.home')}
+                </a>
+                <a href="/about" class="w-full h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-md transition-colors">
+                    {t('nav.about')}
+                </a>
+                <a href="/news" class="w-full h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-md transition-colors">
+                    {t('nav.news')}
+                </a>
+                <a href="/results" class="w-full h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-md transition-colors">
+                    {t('nav.results')}
+                </a>
+                <a href="/faq" class="w-full h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-md transition-colors">
+                    {t('nav.faq')}
+                </a>
+                <a href="/contact" class="w-full h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-md transition-colors">
+                    {t('nav.contact')}
+                </a>
+            </nav>
+            
+            <div class="flex items-center justify-center mt-4 pt-4 border-t border-white/10">
+                <div class="flex items-center bg-white/5 rounded-lg px-4 py-2">
+                    <a 
+                        href={getRedirectPath(pathname, 'uk')} 
+                        class={`w-12 text-center text-sm ${currentLang === 'uk' ? 'text-emerald-400' : 'text-white'} hover:text-emerald-400 transition-colors`}
+                    >
+                        UA
+                    </a>
+                    <span class="text-white/20 mx-2">|</span>
+                    <a 
+                        href={getRedirectPath(pathname, 'en')} 
+                        class={`w-12 text-center text-sm ${currentLang === 'en' ? 'text-emerald-400' : 'text-white'} hover:text-emerald-400 transition-colors`}
+                    >
+                        EN
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Mobile menu toggle
+    mobileMenuButton?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu?.classList.add('hidden');
+        });
+    });
+</script>
