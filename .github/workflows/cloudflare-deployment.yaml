@@ -18,17 +18,20 @@ jobs:
       - name: Build
         run: npm install && npm run build
 
-      - name: Deploy
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: |
-            if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-              echo "Deploying to production..."
-              wrangler pages deploy ./dist --project-name=dl --production
-            else
-              echo "Deploying to preview..."
-              wrangler pages deploy ./dist --project-name=dl --branch=develop
-            fi
+          command: pages deploy ./dist --project-name=dl --production
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Preview
+        if: github.ref == 'refs/heads/develop'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./dist --project-name=dl --branch=develop
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
