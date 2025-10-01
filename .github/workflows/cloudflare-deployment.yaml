@@ -23,5 +23,12 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./dist --project-name=dl --branch=main
+          command: |
+            if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+              echo "Deploying to production..."
+              wrangler pages deploy ./dist --project-name=dl --production
+            else
+              echo "Deploying to preview..."
+              wrangler pages deploy ./dist --project-name=dl --branch=develop
+            fi
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
