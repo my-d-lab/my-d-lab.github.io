@@ -37,3 +37,5 @@ jobs:
           projectName: dl
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          production: true
