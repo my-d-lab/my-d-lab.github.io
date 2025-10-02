@@ -33,4 +33,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: dl
           directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
