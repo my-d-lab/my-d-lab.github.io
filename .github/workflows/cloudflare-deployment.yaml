@@ -14,13 +14,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build
-        run: npm install && npm run build
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
 
-      - name: Deploy
-        uses: cloudflare/wrangler-action@v3
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./dist --project-name=dl
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectName: dl
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }
