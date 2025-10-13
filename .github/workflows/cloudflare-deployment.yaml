@@ -21,8 +21,7 @@ jobs:
         run: npm install --save-dev wrangler@4
 
       - name: Calculate compatibility date
-        id: calc_date
-        run: echo "DEPLOY_DATE=$(date +'%Y-%m-%d')" >> $GITHU_ENV
+        run: echo "DEPLOY_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
