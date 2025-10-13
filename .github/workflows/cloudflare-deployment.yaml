@@ -28,5 +28,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy --assets ./dist --name=dl --branch=dev --compatibility-date=${{ env.DEPLOY_DATE }}
+          command: deploy --assets ./dist --name=dl ---env=staging --compatibility-date=${{ env.DEPLOY_DATE }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
